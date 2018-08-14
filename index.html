@@ -1,10 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
 <body>
-<script src="./bundle/script.js"></script>
+<script src="./module/jquery/dist/jquery.min.js"></script>
+<div class="nav">
+    <ul>
+        <li>aaa</li>
+        <li>bbb</li>
+        <li>ccc</li>
+    </ul>
+</div>
+<div class="main">
+    あいうえお
+</div>
 </body>
 </html>
+
+<style>
+    /*html, body*/
+    /*{*/
+        /*padding: 0;*/
+        /*margin: 0;*/
+        /*height: 500px;*/
+    /*}*/
+
+    .nav ul {
+        background-color: rebeccapurple;
+        border: black solid;
+        font-size: 0;
+        border-radius: 10px;
+        box-shadow: 2px 2px blue;
+    }
+
+    .nav ul li {
+        font-size: 15px;
+        padding: 3px 10px 3px 10px;
+        display: inline-block;
+        border: crimson solid;
+        background-color: brown;
+        border-radius: 10px;
+        box-shadow: 2px 2px blue;
+    }
+
+    .nav ul li:hover {
+        font-weight: bold;
+    }
+
+    .main{
+        height: 500px;
+        background-color: aquamarine;
+        border-radius: 10px;
+        border: brown solid;
+    }
+</style>
