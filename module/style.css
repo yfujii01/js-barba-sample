@@ -1,5 +1,6 @@
-body {
+html,body {
     margin: 0;
+    height: 100%;
 }
 
 .nav {
@@ -7,7 +8,8 @@ body {
     /*top: 50%;*/
     left: 0;
     /*width: 95%;*/
-    height: 50px;
+    /*height: 50px;*/
+    /*height: 5%;*/
     background-color: chartreuse;
     padding: 5px;
     border: darkred solid;
@@ -37,15 +39,22 @@ body {
     box-shadow: 2px 2px blue;
 }
 
+.nav ul .active {
+    background-color: #F0C010;
+
+    /*リンク無効化*/
+    pointer-events: none;
+}
+
 .nav ul li:hover {
     font-weight: bold;
 }
 
 #barba-wrapper {
-    position: relative;
+    /*position: relative;*/
     /*top: 60px;*/
     left: 0;
-    height: 700px;
+    height: 90%;
     background-color: aquamarine;
     border-radius: 10px;
     border: brown solid;

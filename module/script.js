@@ -1,3 +1,14 @@
+$('a').on('click', function () {
+    console.log('aa');
+    // this.addClass('select');
+
+    $('li').removeClass("active");
+    $(this).parent('li').addClass('active');
+
+    // var href = jQuery(this).attr("href");
+    // location.href = href;
+})
+
 //ページ遷移設定(pjax)
 const ShutterAnimation = Barba.BaseTransition.extend({
     // コンストラクタ
@@ -9,6 +20,7 @@ const ShutterAnimation = Barba.BaseTransition.extend({
 });
 
 function start_fnc() {
+    //400ms後に遷移処理を行う
     this.anime(400)
         .then(this.newContainerLoading)
         .then(this.finish.bind(this));
@@ -18,22 +30,22 @@ function anime_fnc(timer) {
     return new Promise(anime_do);
 
     function anime_do(resolve) {
-        // クラスを付け替え、移動させる
+        // 遷移前処理(moveを付与)
         document.querySelector('.shutter-a').classList.toggle('moved');
-        document.querySelector('.shutter-b').classList.toggle('moved');
 
+        // 遷移処理(400ms後)
         setTimeout(function () {
+            //遷移処理
             resolve();
+            //遷移後アニメーション(moveを外す)
             document.querySelector('.shutter-a').classList.toggle('moved');
-            document.querySelector('.shutter-b').classList.toggle('moved');
         }, timer);
     }
 }
+
 function finish_fnc() {
-    // document.body.scrollTop = 0;
     this.done();
 }
-
 
 Barba.Pjax.getTransition = function () {
     return ShutterAnimation;
