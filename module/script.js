@@ -1,75 +1,46 @@
-(function() {
-    // Barba.Pjax.start();
+//ページ遷移設定(pjax)
+(function () {
+    (function () {
+        // const shutterA = document.querySelector('.shutter-a');
+        // const shutterB = document.querySelector('.shutter-b');
 
-    var init = function () {
-        // イベント処理
-        events();
+        const ShutterAnimation = Barba.BaseTransition.extend({
 
-        // // Views
-        // Top.init();
+            // Barba.jsで定義されている。コンストラクタと考えてよいそうです。
+            start: function () {
+                this.shutter(400)
+                    .then(this.newContainerLoading)
+                    .then(this.finish.bind(this));
+            },
 
-        // Barba.js 実行
-        Barba.Pjax.start();
-    };
+            // シャッターが閉まるようなアニメーションをさせる処理
+            shutter: function (timer) {
+                return new Promise(function (resolve) {
+                    // クラスを付け替え、移動させる
+                    document.querySelector('.shutter-a').classList.toggle('moved');
+                    document.querySelector('.shutter-b').classList.toggle('moved');
 
+                    // 画面が黄色く埋まるまで（400ms）待つ
+                    setTimeout(function () {
+                        resolve();
+                    }, timer);
 
-    var events = function () {
-        //
-        // // リンククリック後にCSSアニメーション用のクラスを追加
-        // //
-        // Barba.Dispatcher.on('linkClicked', function(HTMLElement, MouseEvent) {
-        //     document.body.classList.add('is-transition-start');
-        // });
-        //
-        // //
-        // // ページ読み込み後にCSSアニメーション用のクラスを削除
-        // //
-        // Barba.Dispatcher.on('transitionCompleted', function(HTMLElement, MouseEvent) {
-        //     document.body.classList.remove('is-transition-start');
-        // });
+                });
+            },
 
-        //
-        // 各ページごとに処理を実行したい場合
-        //
-        // Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container) {
-        //     switch (currentStatus.namespace) {
-        //         case 'top':
-        //             // index.htmlで実行させたい処理
-        //             console.log('topで実行されました');
-        //             break;
-        //         case 'page1':
-        //             // page1.htmlで実行させたい処理
-        //             console.log('page1で実行されました');
-        //             break;
-        //         case 'page2':
-        //             // page2.htmlで実行させたい処理
-        //             console.log('page2で実行されました');
-        //             break;
-        //     }
-        // });
-    };
-    //
-    //
-    // var Top = Barba.BaseView.extend({
-    //     namespace: 'top',
-    //     onEnter: function () {
-    //         // 新しいコンテナの準備が完了したとき
-    //         console.log('準備完了');
-    //     },
-    //     onEnterCompleted: function () {
-    //         // 準備されたコンテナへの遷移が完了したとき
-    //         console.log('遷移完了');
-    //     },
-    //     onLeave: function () {
-    //         // 新しいページへの遷移が開始されたとき
-    //         console.log('遷移開始');
-    //     },
-    //     onLeaveCompleted: function () {
-    //         // 遷移が完了し、古いコンテナがDOMから削除されたとき
-    //         console.log('遷移完了');
-    //     }
-    // });
+            // アニメーションの終了を示すためにthis.done()を呼ぶことが必須
+            finish: function () {
+                document.body.scrollTop = 0;
+                this.done();
+            }
 
+        });
 
-    init();
+        Barba.Pjax.getTransition = function () {
+            return ShutterAnimation;
+        };
+    })();
+
+    // Barba.js 実行
+    Barba.Pjax.start();
 })();
